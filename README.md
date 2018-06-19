@@ -1,4 +1,6 @@
-Mike Tropea - Web Portfolio 
+Mike Tropea - Website Portfolio 
 ==========
 
-A Symfony project created on April 30, 2018
+A Symfony project created on June 15, 2018
+
+[http://www.miketropea.com] (www.miketropea.com)

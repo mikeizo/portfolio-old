@@ -1,0 +1,47 @@
+/**
+ * TEXT
+ */
+h1,h2,h3,h4,h5,h6 {
+	font-weight: 300;
+}
+
+h1 { font-size: 4rem; }
+h2 { font-size: 3.5rem; }
+h3 { font-size: 3rem; }
+h4 { font-size: 2.5rem; }
+h5 { font-size: 2rem; }
+h6 { font-size: 1.5rem; }
+
+@media (max-width: 767px) {
+	h1 { font-size: 3rem; }
+	h2 { font-size: 2.5rem; }
+	h3 { font-size: 2rem; }
+	h4 { font-size: 1.5rem; }
+	h5 { font-size: 1rem; }
+	h6 { font-size: .8rem; }
+}
+
+.headline {
+	position: relative;
+	margin-bottom: 50px;
+	&:before, &:after {
+		content: "";
+		border-top: 1px solid $black;
+		position: absolute;
+		top: 50%; 
+		bottom: 0;
+		width: 30%;
+	}
+	&:before {
+		right: 0; 
+	}
+	&:after {
+		left: 0; 
+	}
+	&.blue:before, &.blue:after {
+		border-top: 1px solid $blue;
+	}
+	&.white:before, &.white:after {
+		border-top: 1px solid $white;
+	}
+}

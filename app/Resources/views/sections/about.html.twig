@@ -1,0 +1,36 @@
+<section id="about">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-sm-12 text-center">
+				<h2 class="headline white">About</h2>
+			</div>
+
+			<div class="col-sm-12 about-content">
+				<p>{{ options.about }}</p>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="row about-timeline">
+					
+					{% set direction = ['Left', 'Right'] %}
+					{% set offset = ['', 'offset-sm-2'] %}
+					{% set i = 0 %}
+
+					{% for date in about %}
+						<div class="col-sm-5 timeline-block animated {{ cycle(offset, i) }}" data-animation="fadeIn{{ cycle(direction, i) }}">
+							<strong>{{ date.yearFrom }}</strong>
+							{% if date.yearTo %}
+								<strong>{{ date.yearTo }}</strong>
+							{% endif %}
+							<p class="m-0">{{ date.description | raw }}</p>
+						</div>
+						{% set i = i + 1 %}
+					{% endfor %}
+
+				</div>
+			</div>
+
+		</div><!-- .row end -->
+	</div><!-- .container end -->
+</section>

@@ -1,0 +1,29 @@
+/**
+ * Modifiers
+ */
+.white {
+	color: $white;
+}
+.blue {
+	color: $blue;
+}
+.bg-white {
+	background-color: $white;
+}
+.bg-black {
+	background-color: $black;
+}
+.bg-red {
+	background-color: $red;
+}
+.v-center{
+	@include vertical-center;
+}
+.noscroll {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+}
+.show{
+	opacity: 1 !important;
+}

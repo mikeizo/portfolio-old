@@ -1,0 +1,26 @@
+/**
+ * Mixins
+ */
+@mixin transition($time: 0.25s) {
+	transition: all $time ease;
+	-moz-transition: all $time ease;
+	-webkit-transition: all $time ease;
+	-ms-transition: all $time ease;
+	-o-transition: all $time ease;
+}
+
+@mixin animated ($time: 2s) {
+	-webkit-animation-duration: $time;
+	animation-duration: $time;
+}
+
+@mixin vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin box-shadow {
+	box-shadow: 0px 7px 22px rgba($black, 0.3);
+}

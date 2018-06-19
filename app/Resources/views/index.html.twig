@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+{% endblock %}
+
+{% block body %}
+	{% include 'sections/header.html.twig' %}
+	{% include 'sections/home.html.twig' %}
+	{% include 'sections/work.html.twig' %}
+	{% include 'sections/about.html.twig' %}
+	{% include 'sections/skills.html.twig' %}
+	{% include 'sections/quote.html.twig' %}
+	{% include 'sections/contact.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/vendors.js') }}"></script>
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+{% endblock %}

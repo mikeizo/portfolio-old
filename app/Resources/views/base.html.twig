@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html ng-app="myApp" ng-cloak>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>{% block title %} - Website Portfolio{% endblock %}</title>
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('touch-icon-57x57.png') }}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('touch-icon-76x76.png') }}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('touch-icon-120x120.png') }}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('touch-icon-152x152.png') }}">
+	<link rel="apple-touch-icon" sizes="167x167" href="{{ asset('touch-icon-167x167.png') }}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('touch-icon-180x180.png') }}">
+	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=1.2" sizes="32x32" />
+	{% block stylesheets %}{% endblock %}
+
+</head>
+<body class="noscroll">
+
+	<div id="loader">
+		<div class="loader-logo">{% include 'assets/logo.html.twig' %}</div>
+	</div>
+
+	{% block body %}{% endblock %}
+	{% block javascripts %}{% endblock %}
+
+</body>
 </html>

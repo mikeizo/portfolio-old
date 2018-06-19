@@ -1,0 +1,18 @@
+<section id="home">
+
+	<video class="home-video" poster="{{ asset('/assets/img/milkyway.jpg') }}" autoplay="true" loop="true" muted="true" >
+		<source src="{{ asset('/assets/video/milkyway.mp4') }}" type="video/mp4">
+	</video>
+
+	<div class="container">
+		
+		<h1 class="text-center white animated fadeInDown">{{ options.headline | raw }}</h1>
+
+		<div class="home-scroll text-center">
+			<a class="nav-link animated infinite bounce" href="#work" style="opacity: 1;">
+				<i class="fas fa-chevron-circle-down fa-5x"></i>
+			</a>
+		</div>
+
+	</div><!-- .container end -->
+</section>
