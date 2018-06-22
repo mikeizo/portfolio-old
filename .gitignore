@@ -16,10 +16,13 @@
 /vendor/
 /web/bundles/
 
-php.ini
 /_reference/
+php.ini
 /cgi-bin/
+.htaccess
 /node_modules/
-/stevelphotography/
+/photography/
+robots.txt
+sftp-config.json
 /stats/
 /web/old-sites/
