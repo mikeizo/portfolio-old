@@ -70,13 +70,15 @@ header {
 				@include transition(0.6s);
 			}
 			.menu-bar1 {
-				transform: translate3d(0, 10px, 0) rotate(45deg);
+				-webkit-transform: translate3d(0, 10px, 0) rotate(45deg);
+						transform: translate3d(0, 10px, 0) rotate(45deg);
 			}
 			.menu-bar2 {
 				opacity: 0;
 			}
 			.menu-bar3 {
-				transform: translate3d(0, -10px, 0) rotate(-45deg);
+				-webkit-transform: translate3d(0, -10px, 0) rotate(-45deg);
+						transform: translate3d(0, -10px, 0) rotate(-45deg);
 			}
 		}
 	}

@@ -32,7 +32,7 @@
 						<div class="form-group col-sm-8 offset-sm-2 text-center form-messages">
 							<div ng-if="contact_form.$submitted && contact_form.$invalid">
 								
-								<div style="opacity: 1;" class="alert alert-danger animated shake mt-4 mb-0" role="alert">
+								<div style="opacity: 1;" class="alert alert-danger mt-4 mb-0 animated shake-horizontal" role="alert">
 									<div ng-messages="contact_form['contact_form[name]'].$error">
 										<span ng-message="required">Name is required</span>
 										<span ng-message="minlength">Name must be longer than 2 characters</span>
@@ -56,11 +56,11 @@
 							</div>
 
 							<div ng-if="!contact_form.$submitted && formSuccess">
-								<div style="opacity: 1;" class="alert alert-success animated bounceIn mt-4 mb-0" role="alert"> Thank You. Your message has been sent</div>
+								<div style="opacity: 1;" class="alert alert-success mt-4 mb-0 animated pulsate-fwd" role="alert"> Thank You. Your message has been sent</div>
 							</div>
 
 							<div ng-if="formSuccess==false">
-								<div class="alert alert-danger mt-4 mb-0" role="alert">{[{ errorResponse }]}</div>
+								<div class="alert alert-danger mt-4 mb-0 animated shake-horizontal" role="alert">{[{ errorResponse }]}</div>
 							</div>
 
 						</div>

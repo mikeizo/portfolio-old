@@ -9,7 +9,7 @@
 			{% for project in projects %}
 
 				<!-- Work block -->
-				<div class="col-12 col-sm-6 col-lg-3 animated" data-animation="flipInX">
+				<div class="col-12 col-sm-6 col-lg-3 animated" data-animation="flip-in-ver-right">
 					<div class="work-block bg-default"
 						{% if project.color %}
 							style="background-color: {{ project.color }}"
@@ -27,7 +27,7 @@
 									<i class="fas fa-info-circle fa-3x"></i>
 								</a>
 								{% if project.url %}
-									<a href="http://{{ project.url }}" target="_blank" rel="nofollow" title="link">
+									<a href="http://{{ project.url }}" target="_blank" rel="nofollow" title="{{ project.url }}">
 										<i class="fas fa-link fa-2x"></i>
 									</a>
 								{% endif %}
@@ -70,7 +70,7 @@
 											{% if project.url %}
 												<hr>
 												<h4>URL</h4>
-												<a href="" target="_blank" rel="nofollow">{{ project.url }}</a>
+												<a href="http://{{ project.url }}" target="_blank" rel="nofollow">{{ project.url }}</a>
 											{% endif %}
 
 										</div>

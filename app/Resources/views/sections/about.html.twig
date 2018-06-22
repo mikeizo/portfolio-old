@@ -13,12 +13,12 @@
 			<div class="col-sm-12">
 				<div class="row about-timeline">
 					
-					{% set direction = ['Left', 'Right'] %}
+					{% set direction = ['left', 'right'] %}
 					{% set offset = ['', 'offset-sm-2'] %}
 					{% set i = 0 %}
 
 					{% for date in about %}
-						<div class="col-sm-5 timeline-block animated {{ cycle(offset, i) }}" data-animation="fadeIn{{ cycle(direction, i) }}">
+						<div class="col-sm-5 timeline-block animated {{ cycle(offset, i) }}" data-animation="fade-in-{{ cycle(direction, i) }}">
 							<strong>{{ date.yearFrom }}</strong>
 							{% if date.yearTo %}
 								<strong>{{ date.yearTo }}</strong>

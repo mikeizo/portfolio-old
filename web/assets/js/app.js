@@ -1,12 +1,12 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	'use strict';
 
 	/**
 	 * Loader
 	 */
-	setTimeout(function(){
+	setTimeout(function() {
 		$('#loader').addClass('loaded');
-		$('body').toggleClass('noscroll');
+		$('body').removeClass('noscroll');
 	}, 6000);
 
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
 			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
 			if (target.length) {
 				$('html,body').animate({
-					scrollTop: target.offset().top
+					scrollTop: target.offset().top - 50
 				}, 800);
 				return false;
 			}
@@ -35,7 +35,7 @@ $(document).ready(function(){
 		$('.navbar-collapse').toggleClass('show');
 		$('.navbar-toggler').toggleClass('animate');
 	});
-	$('.navbar-custom .nav-link').on('click', function(){
+	$('.navbar-custom .nav-link').on('click', function() {
 		$('body').removeClass('noscroll');
 		$('.navbar-collapse').removeClass('show');
 		$('.navbar-toggler').removeClass('animate');
