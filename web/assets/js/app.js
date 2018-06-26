@@ -28,17 +28,17 @@ $(document).ready(function() {
 
 
 	/**
-	 * Navigation sidebar toggler
+	 * Navigation sidebar btn
 	 */
-	$('.navbar-toggler').on('click', function() {
+	$('.navbar-btn').on('click', function() {
 		$('body').toggleClass('noscroll');
 		$('.navbar-collapse').toggleClass('show');
-		$('.navbar-toggler').toggleClass('animate');
+		$('.navbar-btn').toggleClass('animate');
 	});
 	$('.navbar-custom .nav-link').on('click', function() {
 		$('body').removeClass('noscroll');
 		$('.navbar-collapse').removeClass('show');
-		$('.navbar-toggler').removeClass('animate');
+		$('.navbar-btn').removeClass('animate');
 	});
 
 
@@ -46,13 +46,13 @@ $(document).ready(function() {
 	* Waypoints - Fixed navigation
 	*/
 	$('#work').waypoint(function(direction) {
-		$('header').toggleClass('unfixed-top');
+		$('header').toggleClass('unfixed-nav');
 	}, {
 		offset: '90%'
 	});
 	$('#work').waypoint(function(direction) {
-		$('header').toggleClass('fixed-top');
-		$('header').toggleClass('unfixed-top');
+		$('header').toggleClass('fixed-nav');
+		$('header').toggleClass('unfixed-nav');
 	}, {
 		offset: '50%'
 	});
@@ -98,10 +98,15 @@ contactApp.controller('ContactForm', ['$scope','$http', function($scope, $http) 
 		// Add loading spinner
 		$('.fas-submit').addClass('fa-sync fa-spin').removeClass('fa-paper-plane');
 
+		var url = location.href
+		if(url.slice(-1) != '/') {
+			url = url + '/';
+		}
+
 		// Ajax request
 		$http({
 			method  : 'POST',
-			url     : location.href + '/contact',
+			url     : url + 'contact',
 			data    : $.param({ contact_form: $scope.contactData }), 
 			headers : {
 				'Content-Type': 'application/x-www-form-urlencoded',
