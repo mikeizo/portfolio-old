@@ -21,16 +21,9 @@ var config = {
 // Compiles SCSS files to CSS
 gulp.task('sass', function () {
     return gulp.src(config.sassPath)
-        .pipe(plumber({
-            errorHandler: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
         .pipe(sass())
         .pipe(cleanCSS())
         .pipe(gulp.dest('./web/assets/css'))
-        .pipe(browserSync.stream());
 });
 
 
@@ -63,7 +56,6 @@ gulp.task('vendor-scripts', function() {
     .pipe(concat('vendors.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./web/assets/js/'))
-    .pipe(browserSync.stream());
 });
 
 
