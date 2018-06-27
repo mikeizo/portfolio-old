@@ -19,6 +19,8 @@ use AppBundle\Entity\Contact;
 
 use AppBundle\Form\ContactForm;
 
+use AppBundle\Service\EmailService;
+
 class HomeController extends Controller
 {
 	/**
@@ -71,7 +73,7 @@ class HomeController extends Controller
 	 * @Route("/contact")
 	 * @Method("POST")
 	 */
-	public function contactAction(Request $request, \Swift_Mailer $mailer)
+	public function contactAction(Request $request, EmailService $emailService)
 	{
 		$contact = new Contact();
 		$form = $this->createForm(ContactForm::class, $contact);
@@ -89,6 +91,7 @@ class HomeController extends Controller
 				->getRepository(Options::class)
 				->find(1);
 			
+			/*
 			// Send email to admin
 			$message = (new \Swift_Message('Website Contact Form'))
 				->setFrom('no-reply@miketropea.com')
@@ -111,8 +114,18 @@ class HomeController extends Controller
 					'text/html'
 			);
 			$mailer->send($message_thankyou);
+			*/
+			
+			// Send email to admin
+			$message = $this->renderView('assets/email.html.twig', array('contact' => $contact_data));
+			$emailService->email( $options->getEmail(), 'Website Contact Form', $message );
+			
+			// Send thankyou email to user
+			$message_thankyou = $this->renderView('assets/email-thankyou.html.twig');
+			$emailService->email( $options->getEmail(), 'Thank You', $message_thankyou );
 
 			return new JsonResponse(array('message' => 'Success!'), 200);
+
 		}
 
 		// Error messages
