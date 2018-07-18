@@ -9,7 +9,7 @@
 			{% for project in projects %}
 
 				<!-- Work block -->
-				<div class="col-12 col-sm-6 col-lg-3 animated" data-animation="flip-in-ver-right">
+				<div class="col-12 col-sm-6 col-lg-3 animated" data-animation="flip-in-hor-bottom">
 					<div class="work-block bg-default"
 						{% if project.color %}
 							style="background-color: {{ project.color }}"
@@ -37,7 +37,6 @@
 					</div>
 				</div>
 				<!-- Work block end -->
-
 				<!-- Modal -->
 				<div class="modal modal-custom fade" id="{{ project.slug }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg" role="document">

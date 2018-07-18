@@ -407,6 +407,9 @@ hr {
  * Skills
  */
 #skills {
+	.circular-chart{
+		width: 100%;
+	}
 	.circle-bg {
 		fill: none;
 		stroke: $gray;
