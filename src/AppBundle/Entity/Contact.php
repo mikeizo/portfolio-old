@@ -43,7 +43,7 @@ class Contact
      * @Assert\NotBlank( message = "Email is required" )
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = false
+     *     checkMX = true
      * )
      * 
      */

@@ -122,7 +122,7 @@ class HomeController extends Controller
 			
 			// Send thankyou email to user
 			$message_thankyou = $this->renderView('assets/email-thankyou.html.twig');
-			$emailService->email( $options->getEmail(), 'Thank You', $message_thankyou );
+			$emailService->email( $contact_data->getEmail(), 'Thank You', $message_thankyou );
 
 			return new JsonResponse(array('message' => 'Success!'), 200);
 
