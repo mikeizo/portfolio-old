@@ -27,7 +27,7 @@
 						
 						<div class="form-group col-sm-12 text-center">
 							<button type="submit" id="contact_form_submit" name="contact_form[submit]" class="btn-contact btn">Send Message <i class="fas fas-submit fa-paper-plane"></i></button>
-						</div>					
+						</div>
 
 						<div class="form-group col-sm-8 offset-sm-2 text-center form-messages">
 							<div ng-if="contact_form.$submitted && contact_form.$invalid">
@@ -48,7 +48,7 @@
 										<span ng-message="maxlength">Phone number must be shorter than 14 characters</span>
 										<span ng-message="pattern">Phone number is invalid. ex: 914-555-5555</span>
 									</div>
-									
+
 									<div ng-messages="contact_form['contact_form[comments]'].$error">
 										<span ng-message="maxlength">Comments must be shorter than 300 characters</span>
 									</div>
@@ -60,7 +60,7 @@
 							</div>
 
 							<div ng-if="formSuccess==false">
-								<div class="alert alert-danger mt-4 mb-0 animated shake-horizontal" role="alert">{[{ errorResponse }]}</div>
+								<div style="opacity: 1;" class="alert alert-danger mt-4 mb-0 animated shake-horizontal" role="alert">{[{ errorResponse }]}</div>
 							</div>
 
 						</div>

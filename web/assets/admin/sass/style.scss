@@ -1,0 +1,126 @@
+// Bootstrap
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+// FontAwesome
+$fa-font-path: "/assets/fonts" !default;
+@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/regular';
+@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/solid';
+
+@import 'vars';
+@import 'mixins/mixins';
+@import 'components/components';
+@import 'utilities/utilities';
+@import 'layout/layout';
+@import 'vendors/vendors';
+
+
+/**
+ * Base
+ */
+label{
+	font-weight: bold;
+	&:after{
+		content: ':';
+	}
+}
+.content-wrapper {
+	min-height: 90vh;
+}
+.btn-delete{
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	i:hover{
+		color: darken($red, 15%);
+	}
+}
+.red {
+	color: $red;
+}
+.gray {
+	color: $gray;
+}
+
+/**
+ * Login
+ */
+.btn-login {
+	margin: 0 auto;
+	padding: 5px 35px;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+.login-content {
+	.brand {
+		text-align: center;
+		margin: 20px 0;
+	}
+	max-width: 400px;
+	margin:0 auto;
+	form {
+		padding: 15px 20px 20px 20px;
+		background-color: #fff;
+	}
+}
+.login-header { 
+	margin:10px 0 20px 0;
+}
+.login-img {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	line-height: 56px;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid #6bd6db;
+	font-size: 28px;
+	color: #2CC4CB;
+}
+.login-header a{
+	width: 50%;
+	text-align: center;
+	color: #fff;
+	padding: 12px 0;
+	background-color: #c7cccf;
+}
+.login-header a.active {
+	background-color: #fff;
+	color: inherit;
+}
+.login-title {
+	margin-bottom: 25px;
+	margin-top: 20px;
+	text-align: center;
+}
+.social-auth-hr {
+	text-align: center;
+	height: 10px;
+	margin-bottom: 21px;
+	border-bottom: 1px solid #ccc;
+}
+.social-auth-hr span {
+	background: #fff;
+	padding: 0 10px;
+}
+.login-footer {
+	padding: 15px;
+	background-color: #ebedee;
+	text-align: center;
+}
+
+/**
+ * About
+ */
+ @font-face {
+	font-family: "summernote";
+	font-style: normal;
+	font-weight: normal;
+	src: url("/assets/fonts/summernote.eot?");
+	src: url("/assets/fonts/summernote.eot?#iefix") format("embedded-opentype"), 
+		url("/assets/fonts/summernote.woff?") format("woff"), 
+		url("/assets/fonts/summernote.ttf?") format("truetype"); 
+}
+.datepicker-dropdown {
+	z-index: 500 !important;
+}

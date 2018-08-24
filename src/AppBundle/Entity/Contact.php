@@ -16,17 +16,17 @@ class Contact
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50)
-     * @Assert\NotBlank( message = "The name is required" )
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @Assert\NotBlank( message = "Name is required" )
      * @Assert\Length(
      *      min = 2,
      *      max = 50,
@@ -39,57 +39,58 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      * @Assert\NotBlank( message = "Email is required" )
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     checkMX = false
      * )
-     * 
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=16)
+     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
      * @Assert\Length(
      *     min = 7,
      *     max = 14,
      *     minMessage = "Your phone number must be at least {{ limit }} characters",
      *     maxMessage = "Your phone number cannot be longer than {{ limit }} characters"
      * )
-     * 
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text")
+     * @ORM\Column(name="comments", type="text", nullable=true)
      * @Assert\Length(
      *     max = 300,
      *     maxMessage = "Your comments cannot be longer than {{ limit }} characters"
      * )
-     *     
      */
     private $comments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="timestamp", type="datetime")
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
     private $timestamp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip", type="string", length=12)
+     * @ORM\Column(name="ip", type="string", length=45, nullable=false)
      */
     private $ip;
 
 
+    public function __construct()
+    {
+        $this->timestamp = new \DateTime();
+    }
 
     /**
      * @return int

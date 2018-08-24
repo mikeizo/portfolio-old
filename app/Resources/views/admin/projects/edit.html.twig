@@ -1,0 +1,135 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('assets/admin/css/vendors/jquery.minicolors.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-sm-6">
+			<h1 class="page-title">Project Edit</h1>
+		</div>
+		<div class="col-sm-6 text-right mt-2">
+			<a href="{{ path('admin_projects_index') }}"><i class="fas fa-angle-double-left"></i> Back to the list</a>
+		</div>
+	</div>
+
+	{% include 'admin/sections/alerts.html.twig' %}
+
+	{{ form_start(form, {attr: {novalidate: 'novalidate'}} ) }}
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="ibox">
+
+				<div class="ibox-head">
+					<div class="ibox-title">Information</div>
+					<div class="ibox-tools">
+						<a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+
+				<div class="ibox-body">
+					<div class="form-group">
+						<label>Name</label>
+						{{ form_widget(form.name) }}
+					</div>
+					<div class="form-group">
+						<label>Short Description</label>
+						{{ form_widget(form.shortDescription) }}
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						{{ form_widget(form.description) }}
+					</div>
+					<div class="form-group">
+						<label>Resources</label>
+						{{ form_widget(form.resources) }}
+					</div>
+					<div class="form-group">
+						<label>URL</label>
+						{{ form_widget(form.url) }}
+					</div>
+					<div class="form-group">
+						<label>Background Color</label>
+						<div class="row">
+							<div class="col-sm-4">
+								{{ form_widget(form.color) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group text-right">
+						<button class="btn btn-info" type="submit">Submit</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="ibox">
+
+				<div class="ibox-head">
+					<div class="ibox-title">Media</div>
+					<div class="ibox-tools">
+						<a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+					</div>
+				</div>
+
+				<div class="ibox-body">
+					<div class="form-group row">
+						<div class="col-sm-5 mb-3">
+							<label for="logo">Logo</label>
+							{{ form_widget(form.logo) }}
+						</div>
+						<div class="col-sm-7">
+							{% if project.logo %}
+								<div class="p-4" style="background-color:#EEEEEE">
+									<img class="img-fluid" src="{{ asset('assets/img/uploads/logos/') ~ project.logo  }}" />
+								</div>
+							{% endif %}
+						</div>
+					</div>
+
+					<hr class="my-4">
+
+					<div class="form-group row">
+						<div class="col-sm-5 mb-3">
+							<label for="image">Image</label>
+							{{ form_widget(form.image) }}
+						</div>
+						<div class="col-sm-7">
+							{% if project.image %}
+								<img class="img-fluid" src="{{ asset('assets/img/uploads/') ~ project.image  }}" />
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('assets/admin/js/vendors/jquery.minicolors.min.js') }}"></script>
+
+	<script>
+		$('.minicolors').each(function(){
+			$(this).minicolors({
+				theme:"bootstrap",
+				control:$(this).attr("data-control")||"hue",
+				format: $(this).attr('data-format') || 'hex',
+				opacity:$(this).attr("data-opacity"),
+				swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+				position: $(this).attr('data-position') || 'bottom left',
+			});
+		});
+	</script>
+{% endblock %}

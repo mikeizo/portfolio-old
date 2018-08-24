@@ -7,23 +7,23 @@
 			</div>
 
 			<div class="col-sm-12 about-content">
-				<p>{{ options.about }}</p>
+				<p>{{ config.about }}</p>
 			</div>
 
 			<div class="col-sm-12">
 				<div class="row about-timeline">
-					
+
 					{% set direction = ['left', 'right'] %}
 					{% set offset = ['', 'offset-sm-2'] %}
 					{% set i = 0 %}
 
 					{% for date in about %}
 						<div class="col-sm-5 timeline-block animated {{ cycle(offset, i) }}" data-animation="fade-in-{{ cycle(direction, i) }}">
-							<strong>{{ date.yearFrom }}</strong>
+							<strong>{{ date.yearFrom|date('Y') }}</strong>
 							{% if date.yearTo %}
-								<strong>{{ date.yearTo }}</strong>
+								to <strong>{{ date.yearTo|date('Y') }}</strong>
 							{% endif %}
-							<p class="m-0">{{ date.description | raw }}</p>
+							<p class="m-0">{{ date.description|raw }}</p>
 						</div>
 						{% set i = i + 1 %}
 					{% endfor %}

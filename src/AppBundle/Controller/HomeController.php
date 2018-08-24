@@ -6,37 +6,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 //use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
-use AppBundle\Entity\Options;
-use AppBundle\Entity\Projects;
+use AppBundle\Entity\Config;
+use AppBundle\Entity\Project;
 use AppBundle\Entity\About;
 use AppBundle\Entity\Skills;
 use AppBundle\Entity\Contact;
-
 use AppBundle\Form\ContactForm;
-
 use AppBundle\Service\EmailService;
 
 class HomeController extends Controller
 {
 	/**
-	 * @Route("/")
+	 * @Route("/", name="home_page")
 	 */
 	public function homeAction(Request $request)
 	{
-		$options = $this->getDoctrine()
-			->getRepository(Options::class)
+		$config = $this->getDoctrine()
+			->getRepository(Config::class)
 			->find(1);
 
 		$projects = $this->getDoctrine()
-			->getRepository(Projects::class)
+			->getRepository(Project::class)
 			->findBy(
 				array(),
-				array('position' => 'ASC')
+				array('position' => 'DESC')
 			);
 
 		$about = $this->getDoctrine()
@@ -60,7 +56,7 @@ class HomeController extends Controller
 
 		// Render page
 		return $this->render('index.html.twig', array(
-			'options' 	=> $options,
+			'config' 	=> $config,
 			'projects' 	=> $projects,
 			'about'		=> $about,
 			'skills'	=> $skills,
@@ -76,26 +72,35 @@ class HomeController extends Controller
 	public function contactAction(Request $request, EmailService $emailService)
 	{
 		$contact = new Contact();
-		$form = $this->createForm(ContactForm::class, $contact);
-		$form->handleRequest($request);
-
-		// Check for errors
-		$validator = $this->get('validator');
-		$errors = $validator->validate($contact);
+		$form = $this->createForm('AppBundle\Form\ContactForm', $contact);
+		$form->handleRequest($request);	
+		$errors = false;	
+		
+		// Form validation
+		if($form->isSubmitted()){
+			$validator = $this->get('validator');
+			$errors = $validator->validate($contact);
+		}		
 
 		// No validation errors
-		if ($errors->count() == 0) {
+		if($form->isSubmitted() && $errors->count() == 0) {
 			$contact_data = $form->getData();
 
-			$options = $this->getDoctrine()
-				->getRepository(Options::class)
+			$config = $this->getDoctrine()
+				->getRepository(Config::class)
 				->find(1);
-			
+
+			// Log contact			
+			$contact->setIp($_SERVER['REMOTE_ADDR']);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($contact);
+			$em->flush();
+
 			/*
 			// Send email to admin
 			$message = (new \Swift_Message('Website Contact Form'))
 				->setFrom('no-reply@miketropea.com')
-				->setTo($options->getEmail())
+				->setTo($config->getEmail())
 				->setBody(
 					$this->renderView(
 						'assets/email.html.twig',
@@ -104,7 +109,7 @@ class HomeController extends Controller
 					'text/html'
 			);
 			$mailer->send($message);
-			
+
 			// Send email to user
 			$message_thankyou = (new \Swift_Message('Thank You'))
 				->setFrom('no-reply@miketropea.com')
@@ -115,11 +120,11 @@ class HomeController extends Controller
 			);
 			$mailer->send($message_thankyou);
 			*/
-			
+
 			// Send email to admin
 			$message = $this->renderView('assets/email.html.twig', array('contact' => $contact_data));
-			$emailService->email( $options->getEmail(), 'Website Contact Form', $message );
-			
+			$emailService->email( $config->getEmail(), 'Website Contact Form', $message );
+
 			// Send thankyou email to user
 			$message_thankyou = $this->renderView('assets/email-thankyou.html.twig');
 			$emailService->email( $contact_data->getEmail(), 'Thank You', $message_thankyou );
@@ -135,7 +140,6 @@ class HomeController extends Controller
 
 		// Return validation errors
 		return new JsonResponse(array(
-			'message' 	=> 'Errors',
 			'errors'	=> $error_messages
 		), 400);
 	}

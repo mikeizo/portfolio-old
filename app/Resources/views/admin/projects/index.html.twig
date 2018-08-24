@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-sm-6">
+			<h1 class="page-title">Projects List</h1>
+		</div>
+		<div class="col-sm-6 text-right">
+			<a class="btn btn-info" href="{{ path('admin_projects_new') }}"><i class="fas fa-plus"></i> New project</a>
+		</div>
+	</div>
+
+	{% include 'admin/sections/alerts.html.twig' %}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center">Position</th>
+									<th>Name</th>
+									<th>Short Description</th>
+									<th>Url</th>
+									<th class="text-center">BG Color</th>
+									<th class="text-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for project in projects %}
+								<tr>
+									<td class="text-center">{{ project.position }}</td>
+									<td>{{ project.name }}</td>
+									<td>{{ project.shortDescription }}</td>
+									<td>{{ project.url }}</td>
+									<td class="text-center">
+										{% if project.color %}
+											<i style="color: {{ project.color }}" class="fas fa-square fa-lg" title="{{project.color }}"></i>
+										{% endif %}
+									</td>
+									<td class="text-center">
+										<a href="{{ path('admin_projects_edit', { 'id': project.id }) }}" title="Edit"><i class="fas fa-edit"></i></a>
+
+										<form style="display: inline-block;" action="{{ path('admin_projects_delete', { 'id': project.id }) }}" method="post" onsubmit="return confirmDelete()">
+											{{ form_widget(deleteForms[project.id]) }}
+											<button type="submit" class="btn-delete" title="Delete"><i class="fas fa-trash-alt red"></i></button>
+										</form>
+
+									</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+						{% if not projects %}
+							<h3 class="text-center gray"> No records available</h3>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>{% block title %} Mike Tropea | Website Dashboard{% endblock %}</title>
+
+	{% block stylesheets %}
+		<link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />
+	{% endblock %}
+
+</head>
+<body>
+	
+	<div class="page-wrapper">
+		
+		<header class="header">
+			<div class="page-brand">
+			    <a class="" href="{{ path('home_page') }}">
+			        <span class="brand">
+		        		<img class="" src="{{ asset('assets/img/logo-w.png') }}" alt="Mike Tropea">
+			        </span>
+			        <span class="brand-mini">
+			        	<img class="" src="{{ asset('assets/img/logo-w-small.png') }}" alt="Mike Tropea">
+			        </span>
+			    </a>
+			</div>
+
+			<div class="flexbox flex-1">
+
+				<ul class="nav navbar-toolbar">
+					<li>
+						<a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="fas fa-bars"></i></a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-toolbar">
+					<li class="dropdown dropdown-user">
+						<a class="nav-link dropdown-toggle link" data-toggle="dropdown">
+							<img src="{{ asset('assets/admin/img/admin-avatar.png') }}" />
+							<span>{{ app.user.username }}</span><i class="fa fa-angle-down m-l-5"></i></a>
+						<ul class="dropdown-menu dropdown-menu-right">					
+							<a class="dropdown-item" href="{{ path('logout') }}"><i class="fa fa-power-off"></i>Logout</a>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+		</header>
+
+		{% include 'admin/sections/sidebar.html.twig' %}
+
+		<div class="page-content fade-in-up">
+			<div class="content-wrapper">
+				
+				{% block body %}{% endblock %}
+				
+				<footer class="page-footer">
+					<div class="font-13">{{ "now"|date("Y") }} © Mike Tropea</div>
+				</footer>
+
+				<div class="sidenav-backdrop backdrop"></div>
+				<div class="preloader-backdrop">
+					<div class="page-preloader">Loading</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}	
+		<script src="{{ asset('assets/admin/js/vendors.js') }}"></script>
+		<script src="{{ asset('assets/admin/js/app.js') }}"></script>
+	{% endblock %}
+
+</body>
+</html>

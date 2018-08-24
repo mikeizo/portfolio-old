@@ -1,0 +1,61 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+	<form action ="{{ path('admin_skills_index') }}" method="post">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="page-title">Skills</h1>
+			</div>
+		</div>
+
+		{% include 'admin/sections/alerts.html.twig' %}
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ibox">
+					<div class="ibox-body">
+							  						
+						<div class="form-group row">
+							{% for skill in skills %}
+								<div class="col-sm-3">
+									<div class="text-center mb-4">
+										<h3>{{ skill.skill }}</h3>
+									</div>
+									<div class="text-center">
+										<input type="text" name="{{ skill.id }}" value="{{ skill.percent }}" class="dial">
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+
+						<div class="form-group row">
+							<div class="col-sm-12 text-right">
+								<hr>
+								<button type="submit"class="btn btn-info"><i class="fas fa-save"></i> Save</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</form>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('assets/admin/js/vendors/jquery.knob.min.js') }}"></script>
+
+	<script>
+		// jQuery Knob
+		$(".dial").knob({
+			'height':200,
+			'width':200,
+			'thickness':0.2,
+		});
+	</script>
+{% endblock %}

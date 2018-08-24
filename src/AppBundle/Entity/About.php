@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * About
@@ -22,16 +23,17 @@ class About
     private $id;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="year_from", type="integer", nullable=true)
+     * @ORM\Column(name="year_from", type="datetime", nullable=false)
+     * @Assert\NotBlank(message = "Year From cannot be blank")
      */
     private $yearFrom;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="year_to", type="integer", nullable=true)
+     * @ORM\Column(name="year_to", type="datetime", nullable=true)
      */
     private $yearTo;
 
@@ -39,6 +41,13 @@ class About
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=false)
+     * @Assert\NotBlank(message = "Description cannot be blank")
+     * @Assert\Length(
+     *     min = 5,
+     *     max = 150,
+     *     minMessage = "Description must be at least {{ limit }} characters long",
+     *     maxMessage = "Description cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 

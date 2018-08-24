@@ -25,4 +25,5 @@ php.ini
 robots.txt
 sftp-config.json
 /stats/
-/web/old-sites/
+/web/old-sites/*
+/web/assets/img/uploads/*

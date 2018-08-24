@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-cloak>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>{% block title %} Mike Tropea | Website Portfolio{% endblock %}</title>
+
+	<link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" />
+
+</head>
+<body class="bg-silver-300">
+	<div class="login-content mt-5">
+
+		
+
+		<form id="login-form" action="{{ path('login') }}" method="post">
+			<div class="brand px-5">
+				<img class="logo" src="{{ asset('assets/img/logo.png') }}" alt="Mike Tropea">
+			</div>
+
+			<hr>
+
+			<h3 class="login-title">Login</h3>
+
+			<div class="form-group">
+				<div class="input-group-icon right">
+					<div class="input-icon"><i class="fa fa-user"></i></div>
+					<input type="text" class="form-control" name="_username" value="{{ last_username }}" placeholder="Username" autocomplete="off" required />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group-icon right">
+					<div class="input-icon"><i class="fa fa-lock font-16"></i></div>
+					<input class="form-control" type="password" name="_password" placeholder="Password" required>
+				</div>
+			</div>
+
+			<div class="form-group text-center">
+				<button class="btn btn-info btn-login" type="submit">Login</button>
+			</div>
+
+			{% if error %}
+				<div class="alert alert-danger" role="alert">
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+				</div>
+			{% endif %}
+
+			<div class="form-group text-center">
+				<a class="gray" href="{{ path('home_page') }}"><i class="far fa-arrow-alt-circle-left"></i> Back to site</a>
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>
