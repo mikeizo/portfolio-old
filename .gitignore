@@ -16,14 +16,17 @@
 /vendor/
 /web/bundles/
 
-/_reference/
-php.ini
-/cgi-bin/
 .htaccess
-/node_modules/
-/photography/
+favicon.ico
+php.ini
 robots.txt
 sftp-config.json
+/_reference/
+/cgi-bin/
+/bin/symfony_requirements/
+/node_modules/
+/photography/
 /stats/
 /web/old-sites/*
+!/web/assets/img/uploads
 /web/assets/img/uploads/*
