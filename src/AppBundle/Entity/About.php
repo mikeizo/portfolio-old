@@ -44,7 +44,7 @@ class About
      * @Assert\NotBlank(message = "Description cannot be blank")
      * @Assert\Length(
      *     min = 5,
-     *     max = 150,
+     *     max = 500,
      *     minMessage = "Description must be at least {{ limit }} characters long",
      *     maxMessage = "Description cannot be longer than {{ limit }} characters"
      * )
