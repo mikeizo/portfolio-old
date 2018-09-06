@@ -167,7 +167,8 @@ gulp.task('admin-vendor-scripts-pages', function() {
       './node_modules/jquery-minicolors/jquery.minicolors.min.js',
       './node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
       './node_modules/summernote/dist/summernote.js',
-      './node_modules/jquery-knob/dist/jquery.knob.min.js'
+      './node_modules/jquery-knob/dist/jquery.knob.min.js',
+      './node_modules/sortablejs/Sortable.min.js',
     ])
     .pipe(gulp.dest('./web/assets/admin/js/vendors'))
 });

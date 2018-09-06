@@ -12,7 +12,7 @@
 	</div>
 
 	{% include 'admin/sections/alerts.html.twig' %}
-	
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="ibox">
@@ -21,7 +21,7 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center">Position</th>
+									<th></th>
 									<th>Name</th>
 									<th>Short Description</th>
 									<th>Url</th>
@@ -29,10 +29,10 @@
 									<th class="text-center">Actions</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="items">
 							{% for project in projects %}
-								<tr>
-									<td class="text-center">{{ project.position }}</td>
+								<tr class="item" data-id="{{ project.id }}">
+									<td><i class="fas fa-arrows-alt"></i></td>
 									<td>{{ project.name }}</td>
 									<td>{{ project.shortDescription }}</td>
 									<td>{{ project.url }}</td>
@@ -63,4 +63,9 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('assets/admin/js/vendors/Sortable.min.js') }}"></script>
 {% endblock %}

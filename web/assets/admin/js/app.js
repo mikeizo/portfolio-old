@@ -9,9 +9,9 @@ var APP = function() {
 
     // GLOBAL HELPERS
     // ======================
-	this.is_touch_device = function() {
+    this.is_touch_device = function() {
         return !!('ontouchstart' in window) || !!('onmsgesturechange' in window);
-	};
+    };
 };
 
 var APP = new APP();
@@ -20,16 +20,16 @@ var APP = new APP();
 // ======================
 
 APP.UI = {
-	scrollTop: 0, // Minimal scrolling to show scrollTop button
+    scrollTop: 0, // Minimal scrolling to show scrollTop button
 };
 
 
 // PAGE PRELOADING ANIMATION
 $(window).on('load', function() {
-	setTimeout(function() {
-		$('.preloader-backdrop').fadeOut(200);
-		$('body').addClass('has-animation');
-	},0);
+    setTimeout(function() {
+        $('.preloader-backdrop').fadeOut(200);
+        $('body').addClass('has-animation');
+    },0);
 });
 
 // Hide sidebar on small screen
@@ -112,25 +112,25 @@ $(function () {
     });
 
 
-	// BACK TO TOP
-	$(window).scroll(function() {
-		if($(this).scrollTop() > APP.UI.scrollTop) $('.to-top').fadeIn();
+    // BACK TO TOP
+    $(window).scroll(function() {
+        if($(this).scrollTop() > APP.UI.scrollTop) $('.to-top').fadeIn();
         else $('.to-top').fadeOut();
-	});
-	$('.to-top').click(function(e) {
-		$("html, body").animate({scrollTop:0},500);
-	});
+    });
+    $('.to-top').click(function(e) {
+        $("html, body").animate({scrollTop:0},500);
+    });
 
 
 
     // PANEL ACTIONS
     // ======================
     $('.ibox-collapse').click(function(){
-    	var ibox = $(this).closest('div.ibox');
+        var ibox = $(this).closest('div.ibox');
         ibox.toggleClass('collapsed-mode').children('.ibox-body').slideToggle(200);
     });
     $('.ibox-remove').click(function(){
-    	$(this).closest('div.ibox').remove();
+        $(this).closest('div.ibox').remove();
     });
     $('.fullscreen-link').click(function(){
         if($('body').hasClass('fullscreen-mode')) {
@@ -152,6 +152,30 @@ $(function () {
         }
     }
     
+    // SortOrder JS
+    var el = document.getElementById('items');
+    Sortable.create(el, {
+        animation: 150,
+        store: {
+            get: function(sortable) {
+                var order = localStorage.getItem(sortable.options.group.name);
+                return order ? order.split('|') : [];
+            },
+            set: function(sortable) {
+                var order = sortable.toArray();
+                console.log(order);
+                // Update sort order
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/projects/sort",
+                    data: {
+                        positions: order,
+                    },
+                })
+            }
+        }
+    });
+
 
 });
 

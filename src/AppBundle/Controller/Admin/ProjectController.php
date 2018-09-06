@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Filesystem\Filesystem;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,7 +31,7 @@ class ProjectController extends Controller
 			->getRepository(Project::class)
 			->findBy(
 				array(),
-				array('position' => 'ASC')
+				array('position' => 'DESC')
 			);
 		$deleteForms = array();
 
@@ -255,4 +256,38 @@ class ProjectController extends Controller
 			->getForm()
 		;
 	}
+
+
+	/**
+	 * Sort project weights
+	 *
+	 * @Route("/sort")
+	 * @Method("POST")
+	 */
+	public function sortAction(Request $request)
+	{
+		$entityManager = $this->getDoctrine()->getManager();
+
+		// Request POST data
+		$positions = $request->request->get('positions');
+
+		// Reverse array keys
+		$reverse = array_reverse($positions);
+
+		foreach($reverse as $key => $value) {
+			// Update Project order
+			$query = $entityManager->createQuery('
+				UPDATE AppBundle:Project p
+				SET p.position = :position
+				WHERE p.id = :id
+			')
+			->setParameter('position', $key)
+			->setParameter('id', $value);
+
+			$projects = $query->getResult();
+		}
+
+		return new Response('', Response::HTTP_OK);
+	}
+
 }
