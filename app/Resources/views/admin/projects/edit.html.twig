@@ -81,13 +81,18 @@
 				<div class="ibox-body">
 					<div class="form-group row">
 						<div class="col-sm-5 mb-3">
-							<label for="logo">Logo</label>
+							<label>Logo</label>
 							{{ form_widget(form.logo) }}
 						</div>
 						<div class="col-sm-7">
 							{% if project.logo %}
-								<div class="p-4" style="background-color:#EEEEEE">
-									<img class="img-fluid" src="{{ asset('assets/img/uploads/logos/') ~ project.logo  }}" />
+								<div class="img-logo">
+									<div class="p-4 text-center" style="background-color:#EEEEEE">
+										<img class="img-fluid" src="{{ asset('assets/img/uploads/logos/') ~ project.logo  }}" />
+									</div>
+									<div class="text-right">
+										<a class="red btn-remove" data-id="{{project.id}}" data-img="logo">Remove <i class="fas fa-times"></i></a>
+									</div>
 								</div>
 							{% endif %}
 						</div>
@@ -97,12 +102,17 @@
 
 					<div class="form-group row">
 						<div class="col-sm-5 mb-3">
-							<label for="image">Image</label>
+							<label>Image</label>
 							{{ form_widget(form.image) }}
 						</div>
 						<div class="col-sm-7">
 							{% if project.image %}
-								<img class="img-fluid" src="{{ asset('assets/img/uploads/') ~ project.image  }}" />
+								<div class="img-image">
+									<img class="img-fluid" src="{{ asset('assets/img/uploads/') ~ project.image  }}" />
+									<div class="text-right">
+										<a class="red btn-remove" data-id="{{project.id}}" data-img="image">Remove <i class="fas fa-times"></i></a>
+									</div>
+								</div>
 							{% endif %}
 						</div>
 					</div>
@@ -119,17 +129,4 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{ asset('assets/admin/js/vendors/jquery.minicolors.min.js') }}"></script>
-
-	<script>
-		$('.minicolors').each(function(){
-			$(this).minicolors({
-				theme:"bootstrap",
-				control:$(this).attr("data-control")||"hue",
-				format: $(this).attr('data-format') || 'hex',
-				opacity:$(this).attr("data-opacity"),
-				swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
-				position: $(this).attr('data-position') || 'bottom left',
-			});
-		});
-	</script>
 {% endblock %}

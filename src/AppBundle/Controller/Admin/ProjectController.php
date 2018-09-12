@@ -290,4 +290,33 @@ class ProjectController extends Controller
 		return new Response('', Response::HTTP_OK);
 	}
 
+
+	/**
+	 * Remove images from projects
+	 *
+	 * @Route("/{id}/remove")
+	 * @Method("POST")
+	 */
+	public function removeImageAction(Request $request, Project $project)
+	{
+		$entityManager = $this->getDoctrine()->getManager();
+		$fileSystem = new Filesystem();
+		$type = $request->request->get('img');
+
+		// Remove logo or images file
+		if($type == 'logo') {
+			$logo = $project->getLogo();
+			$fileSystem->remove($this->getParameter('upload_directory') . 'logos/'. $logo);
+			$project->setLogo(NULL);
+		}
+		if($type == 'image') {
+			$image = $project->getImage();
+			$fileSystem->remove($this->getParameter('upload_directory') . $image);
+			$project->setImage(NULL);
+		}
+
+		$this->getDoctrine()->getManager()->flush();
+
+		return new Response('', Response::HTTP_OK);
+	}
 }

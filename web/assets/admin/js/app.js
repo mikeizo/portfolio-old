@@ -111,7 +111,6 @@ $(function () {
         } else $('#theme-style').remove();
     });
 
-
     // BACK TO TOP
     $(window).scroll(function() {
         if($(this).scrollTop() > APP.UI.scrollTop) $('.to-top').fadeIn();
@@ -120,8 +119,6 @@ $(function () {
     $('.to-top').click(function(e) {
         $("html, body").animate({scrollTop:0},500);
     });
-
-
 
     // PANEL ACTIONS
     // ======================
@@ -151,29 +148,80 @@ $(function () {
             $(window).off('keydown',toggleFullscreen);
         }
     }
-    
-    // SortOrder JS
-    var el = document.getElementById('items');
-    Sortable.create(el, {
-        animation: 150,
-        store: {
-            get: function(sortable) {
-                var order = localStorage.getItem(sortable.options.group.name);
-                return order ? order.split('|') : [];
-            },
-            set: function(sortable) {
-                var order = sortable.toArray();
-                console.log(order);
-                // Update sort order
-                $.ajax({
-                    method: "POST",
-                    url: "/admin/projects/sort",
-                    data: {
-                        positions: order,
-                    },
-                })
+
+
+
+    //MINICOLORS
+    // ======================
+    $('.minicolors').each(function(){
+        $(this).minicolors({
+            theme:"bootstrap",
+            control:$(this).attr("data-control")||"hue",
+            format: $(this).attr('data-format') || 'hex',
+            opacity:$(this).attr("data-opacity"),
+            swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+            position: $(this).attr('data-position') || 'bottom left',
+        });
+    });
+
+    // SORTORDER JS
+    // ======================
+    if (typeof Sortable == 'function') {
+        var el = document.getElementById('items');
+        Sortable.create(el, {
+            animation: 150,
+            store: {
+                get: function(sortable) {
+                    var order = localStorage.getItem(sortable.options.group.name);
+                    return order ? order.split('|') : [];
+                },
+                set: function(sortable) {
+                    var order = sortable.toArray();
+                    // Update sort order
+                    $.ajax({
+                        method: "POST",
+                        url: "/admin/projects/sort",
+                        data: {
+                            positions: order,
+                        },
+                    });
+                }
             }
+        });
+    }
+
+    // REMOVE PROJECT IMAGES
+    // ======================
+    $( ".btn-remove" ).click(function() {
+
+        if(confirmDelete()) {
+            // Loading
+            $('.preloader-backdrop').fadeIn();
+
+            // Image type
+            var id = $(this).attr('data-id');
+            var img = $(this).attr('data-img');
+
+            $.ajax({
+                method: "POST",
+                url: "/admin/projects/"+id+"/remove",
+                data: img,
+                success: function(){
+                    if(img == 'logo') {
+                        $(".img-logo").remove();
+                    }
+                    if(img == 'image') {
+                        $(".img-image").remove();
+                    }
+                    $('.preloader-backdrop').fadeOut();
+                },
+                error: function () {
+                    $('.preloader-backdrop').fadeOut();
+                    alert('Access denied');
+                }
+            });
         }
+
     });
 
 
