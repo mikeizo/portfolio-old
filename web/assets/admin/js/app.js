@@ -205,7 +205,9 @@ $(function () {
             $.ajax({
                 method: "POST",
                 url: "/admin/projects/"+id+"/remove",
-                data: img,
+                data: {
+                    img,
+                },
                 success: function(){
                     if(img == 'logo') {
                         $(".img-logo").remove();
