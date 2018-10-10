@@ -184,11 +184,12 @@ hr {
 		height: 250px;
 		margin-bottom: 30px;
 		background-color: lighten($blue, 62%);
-		border: 1px solid darken($white, 5%);
 		color: $white;
 		@include transition(0.5s);
 		&:hover{
-			transform: translate(0px,-3px);
+			-webkit-transform: translate3d(0, -3px, 0);
+			-moz-transform: translate3d(0, -3px, 0);
+			 transform: translate3d(0, -3px, 0);
 			box-shadow: 0px 7px 22px rgba($black, 0.1);
 		}
 	}
