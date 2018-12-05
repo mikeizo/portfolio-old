@@ -69,7 +69,7 @@ class HomeController extends Controller
 	 * @Route("/contact")
 	 * @Method("POST")
 	 */
-	public function contactAction(Request $request, EmailService $emailService)
+	public function contactAction(Request $request, \Swift_Mailer $mailer)
 	{
 		$contact = new Contact();
 		$form = $this->createForm('AppBundle\Form\ContactForm', $contact);
@@ -96,20 +96,6 @@ class HomeController extends Controller
 			$em->persist($contact);
 			$em->flush();
 
-			/*
-			// Send email to admin
-			$message = (new \Swift_Message('Website Contact Form'))
-				->setFrom('no-reply@miketropea.com')
-				->setTo($config->getEmail())
-				->setBody(
-					$this->renderView(
-						'assets/email.html.twig',
-						array('contact' => $contact_data)
-					),
-					'text/html'
-			);
-			$mailer->send($message);
-
 			// Send email to user
 			$message_thankyou = (new \Swift_Message('Thank You'))
 				->setFrom('no-reply@miketropea.com')
@@ -119,8 +105,18 @@ class HomeController extends Controller
 					'text/html'
 			);
 			$mailer->send($message_thankyou);
-			*/
 
+			// Send email to admin
+			$message = (new \Swift_Message('Website Contact Form'))
+				->setFrom('no-reply@miketropea.com')
+				->setTo($config->getEmail())
+				->setBody(
+					$this->renderView('assets/email.html.twig', array('contact' => $contact_data)),
+					'text/html'
+			);
+			$mailer->send($message);
+
+			/*
 			// Send email to admin
 			$message = $this->renderView('assets/email.html.twig', array('contact' => $contact_data));
 			$emailService->email( $config->getEmail(), 'Website Contact Form', $message );
@@ -128,9 +124,9 @@ class HomeController extends Controller
 			// Send thankyou email to user
 			$message_thankyou = $this->renderView('assets/email-thankyou.html.twig');
 			$emailService->email( $contact_data->getEmail(), 'Thank You', $message_thankyou );
-
+			*/
+		
 			return new JsonResponse(array('message' => 'Success!'), 200);
-
 		}
 
 		// Error messages
