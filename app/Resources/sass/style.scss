@@ -169,8 +169,8 @@ hr {
 	#home {
 		background-image: url(/assets/img/milkyway.jpg);
 		.home-video {
-    		display: none;
-    	}
+		display: none;
+		}
 	}
 }
 
@@ -467,6 +467,11 @@ hr {
 				content: '-'
 			}
 		}
+	}
+}
+@media (max-width: 767px) {
+	#quote {
+		background-image: url(/assets/img/quote-bg-sm.jpg);
 	}
 }
 

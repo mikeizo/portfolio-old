@@ -8,21 +8,28 @@ var imagemin    = require('gulp-imagemin');
 var sourcemaps  = require('gulp-sourcemaps');
 var cleanCSS    = require('gulp-clean-css');
 var browserSync = require('browser-sync').create();
+var ngAnnotate  = require('gulp-ng-annotate');
+var purify      = require('gulp-purifycss');
+var purgecss    = require('gulp-purgecss');
 
 
 // Path to files
 var config = {
-    sassPath:   './web/assets/sass/*.scss',
-    scriptPath: './web/assets/js/app.js',
-    imagePath:  './web/assets/img/src/**',
+    sassPath:   './app/Resources/sass/*.scss',
+    scriptPath: './app/Resources/js/app.js',
+    imagePath:  './app/Resources/img/**',
 };
 
 var adminConfig = {
-    sassPath:   './web/assets/admin/sass/*.scss',
-    scriptPath: './web/assets/admin/js/app.js',
-    imagePath:  './web/assets/admin/img/src/**',
+    sassPath:   './app/Resources/sass/admin/*.scss',
+    scriptPath: './app/Resources/js/admin/app.js',
+    imagePath:  './app/Resources/img/admin/src/**',
 };
 
+
+/**
+ * Production
+ */
 
 // Compiles SCSS files to CSS
 gulp.task('sass', function () {
@@ -50,16 +57,28 @@ gulp.task('dev-sass', function () {
 });
 
 
-// Compile vendor javascript files
-gulp.task('vendor-scripts', function() {
+// Remove unused css
+gulp.task('purgecss', () => {
+    return gulp.src('./web/assets/css/style.css')
+        .pipe(purgecss({
+            content: ['./app/Resources/js/app.js', './app/Resources/views/**/*.html.twig']
+        }))
+        .pipe(gulp.dest('./web/assets/css/build'))
+})
+
+
+// Compile javascript files
+gulp.task('scripts', function() {
     return gulp.src([
       './node_modules/jquery/dist/jquery.min.js',
       './node_modules/bootstrap/dist/js/bootstrap.min.js',
       './node_modules/waypoints/lib/jquery.waypoints.min.js',
       './node_modules/angular/angular.min.js',
       './node_modules/angular-messages/angular-messages.min.js',
+      config.scriptPath,
     ])
-    .pipe(concat('vendors.js'))
+    .pipe(concat('app.js'))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('./web/assets/js/'))
 });
@@ -94,20 +113,6 @@ gulp.task('sync', ['sass'], function() {
     gulp.watch(adminConfig.sassPath, ['admin-sass']).on('change', browserSync.reload);
     gulp.watch("./app/Resources/views/**/*.html.twig").on('change', browserSync.reload);
 });
-
-
-
-// Production task
-gulp.task('production', [
-            'sass',
-            'vendor-scripts',
-            'imagemin', 
-            'fonts',
-            'admin-sass',
-            'admin-scss-vendors',
-            'admin-vendor-scripts',
-            'admin-vendor-scripts-pages',
-        ], function() {});
 
 
 /**
@@ -145,24 +150,25 @@ gulp.task('admin-scss-vendors', function () {
 });
 
 
-// Compile vendor javascript files
-gulp.task('admin-vendor-scripts', function() {
+// Compile javascript files
+gulp.task('admin-scripts', function() {
     return gulp.src([
       './node_modules/jquery/dist/jquery.min.js',
       './node_modules/popper.js/dist/umd/popper.js',
       './node_modules/bootstrap/dist/js/bootstrap.min.js',
-      './node_modules/metismenu/dist/metisMenu.min.js',      
+      './node_modules/metismenu/dist/metisMenu.min.js',
       './node_modules/jquery-slimscroll/jquery.slimscroll.min.js',
       './node_modules/popper.js/dist/umd/popper.min.js',
+      adminConfig.scriptPath
     ])
-    .pipe(concat('vendors.js'))
+    .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./web/assets/admin/js/'))
 });
 
 
 // Compile vendor javascript files
-gulp.task('admin-vendor-scripts-pages', function() {
+gulp.task('admin-vendor-scripts', function() {
     return gulp.src([
       './node_modules/jquery-minicolors/jquery.minicolors.min.js',
       './node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
@@ -172,3 +178,18 @@ gulp.task('admin-vendor-scripts-pages', function() {
     ])
     .pipe(gulp.dest('./web/assets/admin/js/vendors'))
 });
+
+
+// Production task
+gulp.task('production', [
+            'sass',
+            'purgecss',
+            'scripts',
+            'imagemin', 
+            'fonts',
+            'admin-sass',
+            'admin-scss-vendors',
+            'admin-scripts',
+            'admin-vendor-scripts',
+        ], function() {});
+
