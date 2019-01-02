@@ -68,6 +68,9 @@ $(document).ready(function() {
 	}, {
 		offset: '75%'
 	});
+	// Add class for purgecss
+	$('.fade-in-left');
+	$('.fade-in-right');
 
 
 	/**

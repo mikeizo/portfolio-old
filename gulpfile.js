@@ -35,7 +35,6 @@ var adminConfig = {
 gulp.task('sass', function () {
     return gulp.src(config.sassPath)
         .pipe(sass())
-        .pipe(cleanCSS())
         .pipe(gulp.dest('./web/assets/css'))
 });
 
@@ -61,8 +60,9 @@ gulp.task('dev-sass', function () {
 gulp.task('purgecss', () => {
     return gulp.src('./web/assets/css/style.css')
         .pipe(purgecss({
-            content: ['./app/Resources/js/app.js', './app/Resources/views/**/*.html.twig']
+            content: ['./web/assets/js/app.js', './app/Resources/views/**/*.html.twig']
         }))
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./web/assets/css/build'))
 })
 
