@@ -7,11 +7,11 @@
     "test": "tests"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "angular": "^1.7.8",
     "angular-messages": "^1.7.8",
     "bootstrap": "^4.3.1",
-    "bootstrap-datepicker": "^1.8.0",
+    "bootstrap-datepicker": "^1.9.0",
     "jquery": "^3.4.1",
     "jquery-knob": "^1.2.11",
     "jquery-minicolors": "^2.1.10",
@@ -19,7 +19,7 @@
     "metismenu": "^2.7.9",
     "popper.js": "^1.15.0",
     "sortablejs": "^1.9.0",
-    "summernote": "^0.8.11",
+    "summernote": "^0.8.12",
     "waypoints": "^4.0.1"
   },
   "devDependencies": {
