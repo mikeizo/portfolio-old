@@ -63,7 +63,7 @@ gulp.task('purgecss', () => {
             content: ['./web/assets/js/app.js', './app/Resources/views/**/*.html.twig']
         }))
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./web/assets/css/build'))
+        .pipe(gulp.dest('./web/assets/css'))
 })
 
 
